@@ -93,5 +93,5 @@ resource "aws_instance" "intro" {
 
 
 output "public_ipv4" {
-  value = aws_instance.intro
+  value = aws_instance.intro.public_ip
 }
