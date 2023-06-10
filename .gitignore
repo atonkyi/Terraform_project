@@ -10,3 +10,7 @@
 
 #Sensitive data
 *.tfvars
+
+#Keys
+terra-key
+terra-key.pub

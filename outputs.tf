@@ -3,7 +3,6 @@
   value = aws_instance.intro.public_ip
 }*/
 
-#Show public IP of the Ec2 instance
 
 data "aws_iam_account_alias" "current" {}
 output "account_alias" {
