@@ -53,10 +53,11 @@ resource "aws_instance" "intro" {
   iam_instance_profile = aws_iam_instance_profile.s_m_read_write.name
   user_data            = <<EOF
 #!/bin/bash
-sudo apt-get update
-sudo apt-get upgrade
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
-sudo apt-get install awscli -y
+sudo apt install unzip -y
+unzip awscliv2.zip
+sudo ./aws/install
 
 aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.my-test-secret2.arn}
 sh "${aws_secretsmanager_secret.my-test-secret2.arn} > /tmp/.env"
