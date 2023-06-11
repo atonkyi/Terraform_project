@@ -52,18 +52,14 @@ resource "aws_instance" "intro" {
   availability_zone    = var.access_zones
   iam_instance_profile = aws_iam_instance_profile.s_m_read_write.name
   user_data            = <<EOF
-sudo apt update
-sudo apt upgrade
+#!/bin/bash
+sudo apt-get update
+sudo apt-get upgrade
 
-sudo apt install unzip -y
-sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-
-sudo unzip awscliv2.zip
-sudo ./aws/install
-
+sudo apt-get install awscli -y
 
 aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.my-test-secret2.arn}
-sh "${aws_secretsmanager_secret.my-test-secret2.arn}"
+sh "${aws_secretsmanager_secret.my-test-secret2.arn} > /tmp/.env"
 EOF
 
   key_name               = aws_key_pair.terra-key.key_name
