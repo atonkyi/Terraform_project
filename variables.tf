@@ -1,8 +1,13 @@
-variable "REGION" {
+variable "region" {
   default = "us-east-1"
 }
 
-variable "USER" {
+variable "access_zones" {
+  default = "us-east-1a"
+}
+
+
+variable "user" {
   default = "ubuntu"
 }
 
