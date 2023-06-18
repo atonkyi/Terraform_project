@@ -9,6 +9,7 @@ resource "aws_key_pair" "terra-key" {
 resource "aws_security_group" "ec2_sg" {
   name        = "ec2 sg"
   description = "allow ports: 22, 80, 443"
+  vpc_id      = aws_default_vpc.default_vpc.id
 
   dynamic "ingress" {
     for_each = var.allow_ports
@@ -31,7 +32,7 @@ resource "aws_security_group" "ec2_sg" {
 
 
 
-
+  tags = var.common_tags
 }
 
 #Create AMI instance
@@ -59,13 +60,11 @@ sudo apt install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install
 
-aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.my-test-secret2.arn}
-sh "${aws_secretsmanager_secret.my-test-secret2.arn} > /tmp/.env"
+aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.my-test-secret2.arn} > /tmp/.env
+
 EOF
 
   key_name               = aws_key_pair.terra-key.key_name
   vpc_security_group_ids = [aws_security_group.ec2_sg.name]
   tags                   = merge(var.common_tags, { Name = "Ec2_instance" })
 }
-
-

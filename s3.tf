@@ -1,4 +1,4 @@
-/*resource "aws_s3_bucket" "terra_backet" {
+resource "aws_s3_bucket" "terra_backet" {
   bucket = "terrab"
 
   tags = {
@@ -13,4 +13,4 @@ resource "aws_s3_bucket_object" "object" {
   key    = "web.sh"
   source = "../terra_homework/web.sh"
 
-}*/
+}
